@@ -40,11 +40,15 @@ export default{
         width: 18px;
         background: white;
         border-radius: 9px;
+        transition: left 250ms;
     } 
     button.checked{
         background: blue;
     }
     button.checked>span{
         left: 24px;
+    }
+    button:focus{
+        outline: none;
     }
 </style>
