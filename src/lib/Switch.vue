@@ -26,7 +26,7 @@ export default{
         height:22px;
         width: 44px;
         border: none;
-        background:gray;
+        background:#bfbfbf;
         border-radius: 11px;
         position: relative;
     }
@@ -41,15 +41,21 @@ export default{
         width: 18px;
         background: white;
         border-radius: 9px;
-        transition: left 250ms;
+        transition: all 250ms;
     } 
     button.checked{
-        background: blue;
+        background: #1890ff;
     }
     button.checked>span{
         left: 24px;
     }
     button:focus{
         outline: none;
+    }
+    button:active{
+        >span{width: 22px;}
+    }
+    button.checked:active{
+        >span{width: 22px;margin-left: -4px;}
     }
 </style>
