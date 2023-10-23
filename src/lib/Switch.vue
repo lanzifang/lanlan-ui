@@ -1,6 +1,6 @@
 <template>
     <div>
-        <button @click="toggle" :class="{checked:value}">
+        <button class="lanlan-switch" @click="toggle" :class="{'lanlan-checked':value}">
             <span></span>
         </button>
     </div>
@@ -21,8 +21,8 @@ export default{
 }
 </script>
 
-<style lang="scss" scoped>
-    button{
+<style lang="scss">
+    .lanlan-switch{
         height:22px;
         width: 44px;
         border: none;
@@ -42,7 +42,7 @@ export default{
             border-radius: 9px;
             transition: all 250ms;
         } 
-        &.checked{
+        &.lanlan-checked{
             background: #1890ff;
             >span{
                 left: 24px;
@@ -54,7 +54,7 @@ export default{
         &:active{
             >span{width: 22px;}
         }
-        &.checked:active{
+        &.lanlan-checked:active{
             >span{width: 22px;margin-left: -4px;}
         }
     } 
