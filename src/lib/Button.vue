@@ -1,16 +1,33 @@
 <template>
-    <button class="lanlan-button" :class="`lanlan-theme-${theme}`">
+    <button class="lanlan-button" :class="classes">
         <slot />
     </button>
 </template>
 
 <script lang="ts">
+import { computed } from 'vue';
+
 export default{
     props:{
         theme:{
             type:String,
             default:'button'
+        },
+        size:{
+            type:String,
+            default:'normal'
         }
+    },
+    setup(props){
+        const {theme,size}=props
+        const classes=computed(()=>{
+            return{
+                [`lanlan-theme-${theme}`]:theme,
+                [`lanlan-size-${size}`]:size,
+
+            }
+        })
+        return {classes}
     }
 }
 </script>
@@ -53,7 +70,8 @@ export default{
             border-color: transparent;
             box-shadow: none;
             color: $blue;
-            &:hover,&:focus{
+            &:hover,
+            &:focus{
                 color: lighten($blue, 10%);
             }
         }
@@ -61,9 +79,22 @@ export default{
             border-color: transparent;
             box-shadow: none;
             color: inherit;
-            &:hover,&:focus{
+            &:hover,
+            &:focus{
                 background: darken(white, 5%);;
             }
         }
+        &.lanlan-theme-button{
+            &.lanlan-size-big{
+                font-size: 24px;
+                height: 48px;
+                padding: 0 16px
+            }
+            &.lanlan-size-small{
+                font-size: 12px;
+                height: 20px;
+                padding: 0 4px;
+            }
+          }
     }
 </style>
