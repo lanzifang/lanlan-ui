@@ -1,19 +1,19 @@
 <template>
     <template v-if="visible">
-        <div class="lanlan-dialog-overlay"></div>
+        <div class="lanlan-dialog-overlay" @click="closeOnClickOverlay"></div>
         <div class="lanlan-dialog-wrapper">
             <div class="lanlan-dialog">
                 <header>
                     标题
-                    <span class="lanlan-dialog-close"></span>
+                    <span @click="close" class="lanlan-dialog-close"></span>
                 </header>
                 <main>
                     <p>内容1</p>
                     <p>内容2</p>
                 </main>
                 <footer>
-                    <Button level="main">OK</Button>
-                    <Button>Cancel</Button>
+                    <Button level="main" @click="ok">OK</Button>
+                    <Button @click="cancel">Cancel</Button>
                 </footer>
             </div> 
         </div>
@@ -27,11 +27,39 @@ export default{
         visible:{
             type:Boolean,
             default:false,
+        },
+        closeOnClickOverlay:{
+            type:Boolean,
+            default:true,
+        },
+        ok:{
+            type:Function,
+        },
+        cancel:{
+            type:Function,
         }
     },
     components:{
         Button
-    }
+    },
+    setup(props, ctx) {
+        const close=()=>{
+            ctx.emit('update:visible',false)
+        }
+        const closeOnClickOverlay=()=>{
+            if(props.closeOnClickOverlay){close()}
+        }
+        const ok=()=>{
+            if(props.ok?.()!==false){
+                close()
+            }
+        }
+        const cancel=()=>{
+            ctx.emit('cancel')
+            close()
+        }
+        return{close,closeOnClickOverlay,ok,cancel}
+    },
 }
 </script>
 
