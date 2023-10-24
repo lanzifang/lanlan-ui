@@ -12,7 +12,6 @@
             <div>hi1</div>
             <div>hi2</div>
         </template>
-        
     </Dialog>
 </template>
 

@@ -1,21 +1,23 @@
 <template>
     <template v-if="visible">
-        <div class="lanlan-dialog-overlay" @click="closeOnClickOverlay"></div>
-        <div class="lanlan-dialog-wrapper">
-            <div class="lanlan-dialog">
-                <header>
-                    <slot name="title" />
-                    <span @click="close" class="lanlan-dialog-close"></span>
-                </header>
-                <main>
-                    <slot name="content" />
-                </main>
-                <footer>
-                    <Button level="main" @click="ok">OK</Button>
-                    <Button @click="cancel">Cancel</Button>
-                </footer>
-            </div> 
-        </div>
+        <teleport to='body'>
+            <div class="lanlan-dialog-overlay" @click="closeOnClickOverlay"></div>
+            <div class="lanlan-dialog-wrapper">
+                <div class="lanlan-dialog">
+                    <header>
+                        <slot name="title" />
+                        <span @click="close" class="lanlan-dialog-close"></span>
+                    </header>
+                    <main>
+                        <slot name="content" />
+                    </main>
+                    <footer>
+                        <Button level="main" @click="ok">OK</Button>
+                        <Button @click="cancel">Cancel</Button>
+                    </footer>
+                </div> 
+            </div>
+        </teleport>
     </template>  
 </template>
 
