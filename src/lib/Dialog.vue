@@ -1,26 +1,34 @@
 <template>
-    <div class="lanlan-dialog-overlay"></div>
-    <div class="lanlan-dialog-wrapper">
-        <div class="lanlan-dialog">
-            <header>
-                标题
-                <span class="lanlan-dialog-close"></span>
-            </header>
-            <main>
-                <p>内容1</p>
-                <p>内容2</p>
-            </main>
-            <footer>
-                <Button level="main">OK</Button>
-                <Button>Cancel</Button>
-            </footer>
-        </div> 
-    </div>
+    <template v-if="visible">
+        <div class="lanlan-dialog-overlay"></div>
+        <div class="lanlan-dialog-wrapper">
+            <div class="lanlan-dialog">
+                <header>
+                    标题
+                    <span class="lanlan-dialog-close"></span>
+                </header>
+                <main>
+                    <p>内容1</p>
+                    <p>内容2</p>
+                </main>
+                <footer>
+                    <Button level="main">OK</Button>
+                    <Button>Cancel</Button>
+                </footer>
+            </div> 
+        </div>
+    </template>  
 </template>
 
 <script lang="ts">
 import Button from './Button.vue';
 export default{
+    props:{
+        visible:{
+            type:Boolean,
+            default:false,
+        }
+    },
     components:{
         Button
     }
