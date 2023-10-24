@@ -4,12 +4,11 @@
         <div class="lanlan-dialog-wrapper">
             <div class="lanlan-dialog">
                 <header>
-                    标题
+                    <slot name="title" />
                     <span @click="close" class="lanlan-dialog-close"></span>
                 </header>
                 <main>
-                    <p>内容1</p>
-                    <p>内容2</p>
+                    <slot name="content" />
                 </main>
                 <footer>
                     <Button level="main" @click="ok">OK</Button>
@@ -37,6 +36,10 @@ export default{
         },
         cancel:{
             type:Function,
+        },
+        title:{
+            type:String,
+            default:'请输入标题',
         }
     },
     components:{
