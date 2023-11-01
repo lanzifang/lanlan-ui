@@ -1,17 +1,27 @@
 <template>
     <div class="lanlan-tabs">
         <div class="lanlan-tabs-nav">
-            <div class="lanlan-tabs-nav-item" v-for="(t,index) in titles" :key="index">{{ t }}</div>    
+            <div class="lanlan-tabs-nav-item" 
+            :class="{selected:t===selected}" 
+            v-for="(t,index) in titles" 
+            @click="select(t)"
+            :key="index">{{ t }}</div>    
         </div>
         <div class="lanlan-tabs-content">
-            <component class="lanlan-tabs-content-item" v-for="(c,index) in defaults" :is="c" :key="index" />
+            <component class="lanlan-tabs-content-item" :is="current" :key="current.props.title" />
         </div>
     </div>
 </template>
 
 <script lang="ts">
+import { computed } from 'vue'
 import Tab from './Tab.vue'
 export default{
+    props:{
+        selected:{
+            type:String
+        }
+    },
     setup(props,context){
         const defaults=context.slots.default()
         defaults.forEach((tag)=>{
@@ -22,7 +32,16 @@ export default{
         const titles=defaults.map((tag)=>{
             return tag.props.title
         })
-        return{defaults,titles}
+        const current=computed(()=>{
+            return defaults.find(tag=>tag.props.title===props.selected)
+        })
+        // const current=defaults.filter((tag)=>{
+        //     return tag.props.title===props.selected
+        // })[0]
+        const select=(title:string)=>{
+            context.emit('update:selected',title)
+        }
+        return{defaults,titles,current,select}
     }
 }
 </script>
