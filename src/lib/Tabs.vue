@@ -1,12 +1,13 @@
 <template>
     <div class="lanlan-tabs">
-        <div class="lanlan-tabs-nav">
+        <div class="lanlan-tabs-nav" ref="container">
             <div class="lanlan-tabs-nav-item" 
             :class="{selected:t===selected}" 
             v-for="(t,index) in titles" 
+            :ref="el=>{if(el)navItems[index]=el}"
             @click="select(t)"
             :key="index">{{ t }}</div>    
-            <div class="lanlan-tabs-nav-indicator"></div>
+            <div class="lanlan-tabs-nav-indicator" ref="indicator"></div>
         </div>
         <div class="lanlan-tabs-content">
             <component class="lanlan-tabs-content-item" :is="current" :key="current.props.title" />
@@ -15,7 +16,7 @@
 </template>
 
 <script lang="ts">
-import { computed } from 'vue'
+import { computed, onMounted, onUpdated, ref } from 'vue'
 import Tab from './Tab.vue'
 export default{
     props:{
@@ -36,13 +37,25 @@ export default{
         const current=computed(()=>{
             return defaults.find(tag=>tag.props.title===props.selected)
         })
-        // const current=defaults.filter((tag)=>{
-        //     return tag.props.title===props.selected
-        // })[0]
+        const navItems=ref([])
+        const indicator=ref<HTMLDListElement>(null)
+        const container=ref<HTMLDListElement>(null)
+        const x=()=>{
+            const divs=navItems.value
+            const result=divs.filter(div=>div.classList.contains('selected'))[0]
+            const {width}=result.getBoundingClientRect()
+            indicator.value.style.width=width+'px'
+            const {left:left1}=container.value.getBoundingClientRect()
+            const {left:left2}=result.getBoundingClientRect()
+            const left= left2-left1
+            indicator.value.style.left=left+'px'
+        }
+        onMounted(x)
+        onUpdated(x)
         const select=(title:string)=>{
             context.emit('update:selected',title)
         }
-        return{defaults,titles,current,select}
+        return{defaults,titles,current,select,navItems,indicator,container}
     }
 }
 </script>
@@ -79,6 +92,7 @@ $border-color: #d9d9d9;
             left: 0;
             bottom: -1px;
             width: 100px;
+            transition: all 250ms;
         }
     }
     &-content{
