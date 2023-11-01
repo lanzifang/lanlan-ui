@@ -4,7 +4,7 @@
             <div class="lanlan-tabs-nav-item" 
             :class="{selected:t===selected}" 
             v-for="(t,index) in titles" 
-            :ref="el=>{if(el)navItems[index]=el}"
+            :ref="el=>{if(t===selected) selectedItem=el}"
             @click="select(t)"
             :key="index">{{ t }}</div>    
             <div class="lanlan-tabs-nav-indicator" ref="indicator"></div>
@@ -37,16 +37,14 @@ export default{
         const current=computed(()=>{
             return defaults.find(tag=>tag.props.title===props.selected)
         })
-        const navItems=ref([])
+        const selectedItem=ref(null)
         const indicator=ref<HTMLDListElement>(null)
         const container=ref<HTMLDListElement>(null)
         const x=()=>{
-            const divs=navItems.value
-            const result=divs.filter(div=>div.classList.contains('selected'))[0]
-            const {width}=result.getBoundingClientRect()
+            const {width}=selectedItem.value.getBoundingClientRect()
             indicator.value.style.width=width+'px'
             const {left:left1}=container.value.getBoundingClientRect()
-            const {left:left2}=result.getBoundingClientRect()
+            const {left:left2}=selectedItem.value.getBoundingClientRect()
             const left= left2-left1
             indicator.value.style.left=left+'px'
         }
@@ -55,7 +53,7 @@ export default{
         const select=(title:string)=>{
             context.emit('update:selected',title)
         }
-        return{defaults,titles,current,select,navItems,indicator,container}
+        return{defaults,titles,current,select,selectedItem,indicator,container}
     }
 }
 </script>
