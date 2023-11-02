@@ -1,9 +1,9 @@
 <template>
     
     <div class="layout">
-        <Topnav class="nav" />    
+        <Topnav :toggleMenuButtonVisible="true" class="nav" />    
         <div class="content">
-            <aside v-if="asideVisible">
+            <aside v-if="menuVisible">
                 <h2>组件列表</h2>
                 <ol>
                     <li>
@@ -33,9 +33,9 @@
     export default{
         components:{Topnav},
         setup(){
-        const asideVisible=inject<Ref<boolean>>('asideVisible')
-        return {asideVisible}
-    }
+        const menuVisible=inject<Ref<boolean>>('menuVisible')
+        return {menuVisible}
+        }
     }
 </script>
 
