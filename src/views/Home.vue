@@ -1,7 +1,7 @@
 <template>
-    <div>
+    <div @mousewheel="scroll">
         <div class="topnavAndBanner">
-        <Topnav />
+        <Topnav v-if="logoVisible" />
         <div class="banner">
             <h1>蓝蓝UI</h1>
             <h1>一个简单且实用的UI框架</h1>
@@ -40,9 +40,25 @@
 </template>
 
 <script lang="ts">
+    import { ref } from 'vue';
     import Topnav from '../components/Topnav.vue';
     export default{
-        components:{Topnav}
+        components:{Topnav},
+        setup(){
+            const width=document.documentElement.clientWidth
+            console.log(width)
+            const logoVisible=ref(true)
+            const scroll=()=>{
+                window.addEventListener('wheel', (event: WheelEvent) => {
+                    if(width<=500&&event.deltaY>0){
+                        logoVisible.value=false
+                    }else if(width<=500&&event.deltaY<0){
+                        logoVisible.value=true
+                    }
+                });
+            }
+            return {scroll,logoVisible}
+        }
     }
 </script>
 
@@ -56,7 +72,6 @@
     }
     .features{
         margin: 64px auto;
-        width: 400px;
 
         @media (min-width: 800px) {
             width: 800px;

@@ -58,6 +58,7 @@
         height: 100vh;
         >.nav{
             flex-shrink: 0;
+            background:#BDECE9;
         }
         >.content{
             flex-grow: 1;
@@ -88,6 +89,7 @@
         left: 0;
         padding-top: 70px;
         height: 100%;
+        z-index: 1;
         >h2{
             margin-bottom: 4px;
             padding: 0 16px;

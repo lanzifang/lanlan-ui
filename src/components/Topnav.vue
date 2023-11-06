@@ -31,8 +31,9 @@ export default{
             console.log('点击了')
             menuVisible.value=!menuVisible.value
         }
-        return {toggleMenu}
-    }
+        return {toggleMenu,}
+    },
+    
 }
 </script>
 
@@ -41,7 +42,7 @@ export default{
     .topnav{
         color: $color;
         display: flex;
-        padding: 16px;
+        padding: 10px;
         position: fixed;
         top: 0;
         left: 0;
