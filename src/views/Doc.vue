@@ -2,7 +2,7 @@
     
     <div class="layout">
         <Topnav :toggleMenuButtonVisible="true" class="nav" />    
-        <div class="content">
+        <div class="content" @click="toggleMenu">
             <aside v-if="menuVisible">
                 <h2>文档</h2>
                 <ol>
@@ -35,7 +35,7 @@
             <main>
                 <router-view />
             </main>
-        </div>
+        </div>close
     </div>
 </template>
 
@@ -45,8 +45,14 @@
     export default{
         components:{Topnav},
         setup(){
-        const menuVisible=inject<Ref<boolean>>('menuVisible')
-        return {menuVisible}
+            const width=document.documentElement.clientWidth
+            const menuVisible=inject<Ref<boolean>>('menuVisible')
+            const toggleMenu=()=>{
+                if(width<=500&&menuVisible.value===true){
+                    menuVisible.value=!menuVisible.value
+                }
+            }
+            return {menuVisible,toggleMenu}
         }
     }
 </script>

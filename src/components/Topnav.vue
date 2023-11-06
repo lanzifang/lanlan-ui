@@ -1,6 +1,6 @@
 <template>
-    <div class="topnav">
-        <router-link to="/" class="logo">
+    <div class="topnav" >
+        <router-link to="/"  class="logo">
             <svg class="icon">
                 <use xlink:href="#icon-lan2"></use>
             </svg>
@@ -28,7 +28,6 @@ export default{
     setup(){
         const menuVisible=inject<Ref<boolean>>('menuVisible')
         const toggleMenu=()=>{
-            console.log('点击了')
             menuVisible.value=!menuVisible.value
         }
         return {toggleMenu,}

@@ -1,5 +1,5 @@
 <template>
-    <div @mousewheel="scroll">
+    <div @mousewheel="scroll" >
         <div class="topnavAndBanner">
         <Topnav v-if="logoVisible" />
         <div class="banner">
@@ -40,13 +40,15 @@
 </template>
 
 <script lang="ts">
-    import { ref } from 'vue';
+    import {  onMounted, ref } from 'vue';
     import Topnav from '../components/Topnav.vue';
     export default{
         components:{Topnav},
         setup(){
+            const useEffect=() => {
+                window.scrollTo(0, 0);
+            }
             const width=document.documentElement.clientWidth
-            console.log(width)
             const logoVisible=ref(true)
             const scroll=()=>{
                 window.addEventListener('wheel', (event: WheelEvent) => {
@@ -57,8 +59,8 @@
                     }
                 });
             }
-            return {scroll,logoVisible}
-        }
+            return {scroll,logoVisible,useEffect}
+        },
     }
 </script>
 
