@@ -50,7 +50,7 @@ $border-color: #d9d9d9;
     &-component{
         padding: 16px;
     }
-    &-actiong{
+    &-actions{
         padding: 8px 16px;
         border-top: 1px dashed $border-color;
     }
